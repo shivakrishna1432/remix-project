@@ -9,11 +9,11 @@ const MainNavigation = () => {
             Home
           </NavLink>
         </li>
-        {/* <li>
+        <li>
           <NavLink to="/notes" className={"[&.active]:text-orange-300"}>
             My Notes
           </NavLink>
-        </li> */}
+        </li>
       </ul>
     </div>
   );

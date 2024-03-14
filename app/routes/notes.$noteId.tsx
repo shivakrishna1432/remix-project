@@ -11,6 +11,7 @@ type paramsProps = {
 type noteProps = {
   title: string;
   content: string;
+  id: number;
 };
 
 export default function NoteDetailsPage() {
@@ -23,7 +24,7 @@ export default function NoteDetailsPage() {
       </h1>
       <div className="flex justify-center pt-10">
         <div className="bg-indigo-800 p-4 w-[500px] rounded-md text-white text-center">
-          <Link to="/" className="underline text-red-200 my-3">
+          <Link to="/notes" className="underline text-red-200 my-3">
             Back to all Notes
           </Link>
           <h1 className="text-3xl font-semibold my-3">{note.title}</h1>
@@ -36,8 +37,8 @@ export default function NoteDetailsPage() {
 
 export async function loader({ params }: paramsProps) {
   const notes = await getStoredNotes();
-  const noteId = params.noteId;
-  const selectedNote = notes.find((note: noteProps) => note.title === noteId);
+  const noteId = Number(params.noteId);
+  const selectedNote = notes.find((note: noteProps) => note.id === noteId);
   if (!selectedNote) {
     throw json(
       { message: "could not find the path " + noteId },

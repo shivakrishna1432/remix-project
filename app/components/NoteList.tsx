@@ -18,7 +18,7 @@ const NoteList = ({ notes }: notesListProps) => {
           key={note?.id}
           className="w-[400px] h-[220px] bg-indigo-800  shadow-black shadow-md p-6 rounded-md text-white opacity-50 m-3"
         >
-          <Link to={`/${note.title}`}>
+          <Link to={`/notes/${note.id}`}>
             <div className="flex justify-between my-1">
               <span>#{i + 1}</span>
               <span>{note.date}</span>
