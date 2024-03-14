@@ -4,7 +4,7 @@
     "**/*.ts",
     "**/*.tsx",
     "app/data/notes.js",
-    "app/routes/notes.$noteId.tsx",
+    "app/routes/$noteId.tsx",
     "app/components/NoteList.tsx"
   ],
   "compilerOptions": {
