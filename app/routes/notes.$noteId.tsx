@@ -1,4 +1,5 @@
-import { Link, json, useLoaderData } from "@remix-run/react";
+import { Form, Link, useLoaderData } from "@remix-run/react";
+import { MdDelete } from "react-icons/md";
 
 import { getStoredNotes } from "~/data/notes";
 
@@ -11,7 +12,7 @@ type paramsProps = {
 type noteProps = {
   title: string;
   content: string;
-  id: number;
+  id: string;
 };
 
 export default function NoteDetailsPage() {
@@ -29,6 +30,22 @@ export default function NoteDetailsPage() {
           </Link>
           <h1 className="text-3xl font-semibold my-3">{note.title}</h1>
           <p className="my-3">{note.content}</p>
+          <Form
+            action="destroy"
+            method="post"
+            onSubmit={(e) => {
+              const response = confirm(
+                "Please confirm you want to delete this note"
+              );
+              if (!response) {
+                e.preventDefault();
+              }
+            }}
+          >
+            <button type="submit" className="text-3xl">
+              <MdDelete />
+            </button>
+          </Form>
         </div>
       </div>
     </>
@@ -37,13 +54,10 @@ export default function NoteDetailsPage() {
 
 export async function loader({ params }: paramsProps) {
   const notes = await getStoredNotes();
-  const noteId = Number(params.noteId);
+  const noteId = String(params.noteId);
   const selectedNote = notes.find((note: noteProps) => note.id === noteId);
   if (!selectedNote) {
-    throw json(
-      { message: "could not find the path " + noteId },
-      { status: 404 }
-    );
+    throw new Response("could not find the path", { status: 404 });
   }
   return selectedNote;
 }

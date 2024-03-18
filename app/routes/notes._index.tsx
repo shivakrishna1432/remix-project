@@ -17,7 +17,7 @@ export const meta: MetaFunction = () => {
 type notesProps = {
   title: string;
   content: string;
-  id: number;
+  id: string;
   date: string;
 };
 // type errorBoundayProps = {
@@ -56,13 +56,13 @@ export const action: ActionFunction = async ({ request }) => {
   });
   try {
     const newSub = formSchema.parse(notesData);
-    console.log("formData", newSub);
+    // console.log("formData", newSub);
   } catch (error) {
     // console.log(error);
     return json({ error });
   }
   const existingNotes = await getStoredNotes();
-  notesData.id = noteLength + 1;
+  notesData.id = String(noteLength + 1);
   const date = new Date();
   notesData.date = formatedDate(date);
   const updatedNotes = existingNotes.concat(notesData);
